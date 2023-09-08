@@ -1,35 +1,35 @@
+/* eslint-disable react/prop-types */
 import axios from 'axios'
 import { createContext, useEffect, useState} from 'react'
 
 export const UsersContext = createContext()
 
-// eslint-disable-next-line react/prop-types
 const UserContext = ({children}) => {
-    const [users, setUsuarios] = useState([])
+    const [users, setUsers] = useState([])
   
-    const getUsuarios = async () => {
+    const getUsers = async () => {
         try {
             const response = await axios.get("http://localhost:3000/users")
             console.log(response, "response context")
-            setUsuarios(response.data)
+            setUsers(response.data)
         } catch (error) {
             console.log(error)
         }
     }
 
-    const cerrarSesion = () => {
+    const logout = () => {
             localStorage.removeItem("user")
-            window.location.href = "/login"
+            window.location.href = "/Login"
     }
 
     useEffect(() => {
-        getUsuarios()
+        getUsers()
     }, [])
 
     return (
-    <UserContext.Provider value={{users, setUsuarios, cerrarSesion}}>
+    <UsersContext.Provider value={{users, setUsers, logout}}>
         {children}
-    </UserContext.Provider>
+    </UsersContext.Provider>
   )
 }
 

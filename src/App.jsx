@@ -1,12 +1,13 @@
-import UserContext from './Contexts/UserContext/UserContext'
-import Way from './Routes/Routes'
+import Header from './Components/Header/Header';
+import UserContext from './Contexts/UserContext/UserContext';
 
 function App() {
   
   return (
     <>
-      <UserContext>  
-          <Way />
+      <UserContext>
+          <Header />
+          <div className="flex justify-center items-center text-center">Hola Mundo!</div>
       </UserContext>
     </>
   );

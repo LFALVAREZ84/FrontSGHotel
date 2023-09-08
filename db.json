@@ -1,0 +1,10 @@
+{
+    "users": [
+      {
+        "name": "lfa",
+        "email": "lfa@lfa.com",
+        "contraseña": "123",
+        "id": 1
+      }
+    ]
+}

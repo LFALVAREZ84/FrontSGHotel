@@ -1,13 +1,8 @@
-import {Routes, Route } from 'react-router-dom'
 
-const Way = () => {
+const Routes = () => {
   return (
-    <>
-    <Routes>
-      <Route path='/' element={'Inicio'} />
-    </Routes>
-    </>
+    <div>Routes</div>
   )
 }
 
-export default Way
+export default Routes
