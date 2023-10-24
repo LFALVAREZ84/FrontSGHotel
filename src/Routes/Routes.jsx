@@ -1,13 +1,16 @@
-import {Routes, Route } from 'react-router-dom'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Register from '../Pages/Register/Register'; 
 
-const Way = () => {
+const AppRoutes = () => {
   return (
-    <>
-    <Routes>
-      <Route path='/' element={'Inicio'} />
-    </Routes>
-    </>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/register" element={<Register />} /> {/* Ruta para la página de registro */}
+      </Routes>
+      
+    </Router>
+  );
+};
 
-export default Way
+export default AppRoutes;

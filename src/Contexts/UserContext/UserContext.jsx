@@ -1,36 +1,36 @@
-import axios from 'axios'
-import { createContext, useEffect, useState} from 'react'
+import axios from 'axios';
+import { createContext, useEffect, useState } from 'react';
 
-export const UsersContext = createContext()
+export const UsersContext = createContext();
 
 // eslint-disable-next-line react/prop-types
-const UserContext = ({children}) => {
-    const [users, setUsuarios] = useState([])
-  
-    const getUsuarios = async () => {
-        try {
-            const response = await axios.get("http://localhost:3000/users")
-            console.log(response, "response context")
-            setUsuarios(response.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+const UserContext = ({ children }) => {
+  const [users, setUsuarios] = useState([]);
 
-    const cerrarSesion = () => {
-            localStorage.removeItem("user")
-            window.location.href = "/login"
-    }
+  //const getUsuarios = async () => {
+    //try {
+     // const response = await axios.get("http://localhost:8001/api/users");
+     // console.log(response, "response context");
+     // setUsuarios(response.data);
+   // } catch (error) {
+   //   console.log(error);
+  //  }
+ // }
 
-    useEffect(() => {
-        getUsuarios()
-    }, [])
+  const cerrarSesion = () => {
+    localStorage.removeItem("user");
+    window.location.href = "/login";
+  }
 
-    return (
-    <UserContext.Provider value={{users, setUsuarios, cerrarSesion}}>
-        {children}
-    </UserContext.Provider>
-  )
+  //useEffect(() => {
+   // getUsuarios();
+  //}, []);
+
+  return (
+    <UsersContext.Provider value={{ users, setUsuarios, cerrarSesion }}>
+      {children}
+    </UsersContext.Provider>
+  );
 }
 
-export default UserContext
+export default UserContext;
