@@ -1,12 +1,13 @@
 import UserContext from './Contexts/UserContext/UserContext'
-import Way from './Routes/Routes'
+import AppRoutes from './Routes/Routes';
+
 
 function App() {
   
   return (
     <>
       <UserContext>  
-          <Way />
+          <AppRoutes />
       </UserContext>
     </>
   );
