@@ -1,36 +1,52 @@
-import axios from 'axios'
-import { createContext, useEffect, useState} from 'react'
+// UserContext.jsx
+import axios from 'axios';
+import React, { createContext, useEffect, useState, useContext } from 'react';
 
-export const UsersContext = createContext()
+export const UsersContext = createContext();
 
-// eslint-disable-next-line react/prop-types
-const UserContext = ({children}) => {
-    const [users, setUsuarios] = useState([])
-  
-    const getUsuarios = async () => {
-        try {
-            const response = await axios.get("http://localhost:3000/users")
-            console.log(response, "response context")
-            setUsuarios(response.data)
-        } catch (error) {
-            console.log(error)
-        }
+const UserContextProvider = ({ children }) => {
+  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState(null); // Initialize user state
+
+  const getUsers = async () => {
+    try {
+      const response = await axios.get('http://localhost:8001/api/users');
+      setUsers(response.data);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    const cerrarSesion = () => {
-            localStorage.removeItem("user")
-            window.location.href = "/login"
+  const logout = () => {
+    localStorage.removeItem('user');
+    setUser(null); // Clear user when logging out
+    window.location.href = '/Login';
+  };
+
+  const login = (userData) => {
+    console.log('Usuario ha iniciado sesión:', userData);
+    setUser(userData);
+  };
+
+  useEffect(() => {
+    getUsers();
+    // Check if user is already logged in
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
     }
+  }, []);
 
-    useEffect(() => {
-        getUsuarios()
-    }, [])
+  return (
+    <UsersContext.Provider value={{ users, setUsers, user, setUser, logout, login }}>
+      {children}
+    </UsersContext.Provider>
+  );
+};
 
-    return (
-    <UserContext.Provider value={{users, setUsuarios, cerrarSesion}}>
-        {children}
-    </UserContext.Provider>
-  )
-}
+export const useUser = () => {
+  return useContext(UsersContext);
+};
 
-export default UserContext
+export default UserContextProvider;
